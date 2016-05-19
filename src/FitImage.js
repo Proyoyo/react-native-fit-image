@@ -5,6 +5,7 @@ import React, {
 import  {
   Image,
 } from 'react-native';
+import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
 
 const propTypes = {
   height: PropTypes.number,
@@ -38,6 +39,17 @@ class FitImage extends Component {
       originalWidth: undefined,
       originalHeight: undefined,
     };
+    this.getSource = this.getSource.bind(this);
+  }
+
+  getSource(assetNumber) {
+      let source = resolveAssetSource(assetNumber);
+      let ratio = source.width / source.height;
+      let width = this.props.width || Utility.getScreenWidth();
+      let height = this.props.height || width/ratio;
+      source.width = width;
+      source.height = height;
+      return source;
   }
 
   componentDidMount() {
@@ -93,15 +105,10 @@ class FitImage extends Component {
   }
 
   render() {
+      let source = this.getSource(this.props.source);
     return (
       <Image
-        source={this.props.source}
-        style={[
-          { height: this.state.height },
-          this.props.style,
-          this.getStyle(),
-        ]}
-        onLayout={(event) => this.resize(event)}
+        source={source} resizeMode = 'cover'
       >
       {this.props.children}
     </Image>

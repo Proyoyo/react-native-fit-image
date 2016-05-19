@@ -2,9 +2,10 @@ Object.defineProperty(exports,"__esModule",{value:true});var _jsxFileName='src/F
 
 
 
-var _reactNative=require('react-native');function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}
+var _reactNative=require('react-native');
 
 
+var _resolveAssetSource=require('react-native/Libraries/Image/resolveAssetSource');var _resolveAssetSource2=_interopRequireDefault(_resolveAssetSource);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}
 
 var propTypes={
 height:_react.PropTypes.number,
@@ -36,8 +37,19 @@ _this.state={
 height:0,
 layoutWidth:undefined,
 originalWidth:undefined,
-originalHeight:undefined};return _this;}_createClass(FitImage,[{key:'componentDidMount',value:function componentDidMount()
+originalHeight:undefined};
 
+_this.getSource=_this.getSource.bind(_this);return _this;}_createClass(FitImage,[{key:'getSource',value:function getSource(
+
+
+assetNumber){
+var source=(0,_resolveAssetSource2.default)(assetNumber);
+var ratio=source.width/source.height;
+var width=this.props.width||Utility.getScreenWidth();
+var height=this.props.height||width/ratio;
+source.width=width;
+source.height=height;
+return source;}},{key:'componentDidMount',value:function componentDidMount()
 
 
 {var _this2=this;
@@ -92,16 +104,11 @@ layoutWidth:width});}},{key:'render',value:function render()
 
 
 
-{var _this3=this;
+{
+var source=this.getSource(this.props.source);
 return (
 _react2.default.createElement(_reactNative.Image,{
-source:this.props.source,
-style:[
-{height:this.state.height},
-this.props.style,
-this.getStyle()],
-
-onLayout:function onLayout(event){return _this3.resize(event);},__source:{fileName:_jsxFileName,lineNumber:97}},
+source:source,resizeMode:'cover',__source:{fileName:_jsxFileName,lineNumber:110}},
 
 this.props.children));}}]);return FitImage;}(_react.Component);
 
