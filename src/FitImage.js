@@ -4,6 +4,7 @@ import React, {
 } from 'react';
 import  {
   Image,
+  Dimensions,
 } from 'react-native';
 import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
 
@@ -45,7 +46,7 @@ class FitImage extends Component {
   getSource(assetNumber) {
       let source = resolveAssetSource(assetNumber);
       let ratio = source.width / source.height;
-      let width = this.props.width || Utility.getScreenWidth();
+      let width = this.props.width || Dimensions.get('window').width;
       let height = this.props.height || width/ratio;
       source.width = width;
       source.height = height;
