@@ -46,7 +46,7 @@ class FitImage extends Component {
   getSource(assetNumber) {
       let source = resolveAssetSource(assetNumber);
       let ratio = source.width / source.height;
-      let width = this.props.width || Dimensions.get('window').width;
+      let width = this.props.width;
       let height = this.props.height || width/ratio;
       source.width = width;
       source.height = height;

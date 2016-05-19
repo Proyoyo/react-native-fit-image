@@ -46,7 +46,7 @@ _this.getSource=_this.getSource.bind(_this);return _this;}_createClass(FitImage,
 assetNumber){
 var source=(0,_resolveAssetSource2.default)(assetNumber);
 var ratio=source.width/source.height;
-var width=this.props.width||_reactNative.Dimensions.get('window').width;
+var width=this.props.width;
 var height=this.props.height||width/ratio;
 source.width=width;
 source.height=height;
